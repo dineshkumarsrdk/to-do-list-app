@@ -1,0 +1,33 @@
+package com.dine.todolistapp.login;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+@Controller
+@SessionAttributes("userID")
+public class LoginController {
+	
+	@Autowired
+	private AuthenticationService authenticator;
+	@GetMapping("/login")
+	public String login() {
+		return "loginPage";
+	}
+	
+	@PostMapping("/login")
+	public String loginAuthenticator(@RequestParam String userID,
+								@RequestParam String password, ModelMap model) {
+		if(authenticator.authenticate(userID, password)) {
+			model.put("userID", userID);
+			return "welcomePage";
+		}
+		else {
+			return "loginPage";
+		}
+	}
+}

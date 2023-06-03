@@ -1,0 +1,12 @@
+package com.dine.todolistapp.login;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthenticationService {
+	public boolean authenticate(String userID, String password) {
+		boolean isValidUserName = userID.equalsIgnoreCase("dine");
+		boolean isValidPassword = password.equalsIgnoreCase("dk");
+		return isValidUserName && isValidPassword; 
+	}
+}
